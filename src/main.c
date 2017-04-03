@@ -1,9 +1,13 @@
+#include "common.h"
 #include "fetch.h"
+#include "parse.h"
 
 int main() {
-  char *web = fetch_webpage("http://bugmenot.com/view/linkedin.com");
-  printf("%s\n", web);
-  free(web);
+  webpage web = {.URL = "http://bugmenot.com/view/linkedin.com"};
+  fetch_webpage(&web);
+  parse_webpage(&web);
+  // printf("%s\n", web.raw);
+  free_webpage(&web);
 
   return 0;
 }
