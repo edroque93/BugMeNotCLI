@@ -3,7 +3,7 @@
 #include "parse.h"
 
 int main() {
-  webpage web = {.URL = "http://bugmenot.com/view/linkedin.com"};
+  webpage web = {.URL = "http://bugmenot.com/view/9gag.com"};
   fetch_webpage(&web);
   parse_webpage(&web);
   // printf("%s\n", web.raw);
