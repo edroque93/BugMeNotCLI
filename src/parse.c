@@ -12,10 +12,21 @@ void print_element_names(xmlNode *node) {
   }
 }
 
+account *retrieve_account(xmlNode *article) {
+  account *entry = (account *)malloc(sizeof(account));
+  // malloc username and password
+  entry->username = (char *)malloc(1);
+  entry->password = (char *)malloc(1);
+  entry->success = 0;
+  entry->next = NULL;
+
+  return entry;
+}
+
 void parse_webpage(webpage *web) {
   htmlDocPtr doc =
       htmlReadMemory(web->raw, web->length, web->URL, NULL, HTML_FLAGS);
-  if (doc == NULL) {
+  if (!doc) {
     print_error("parse_webpage::htmlReadMemory returned NULL.");
   } else {
     xmlNode *root_element = NULL;
@@ -24,5 +35,6 @@ void parse_webpage(webpage *web) {
     print_element_names(root_element);
     xmlFreeDoc(doc);
     xmlCleanupParser();
+    web->first = NULL;
   }
 }
