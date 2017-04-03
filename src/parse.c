@@ -33,6 +33,5 @@ void parse_webpage(webpage *web) {
     search_accounts(xmlDocGetRootElement(doc), &web->first);
     xmlFreeDoc(doc);
     xmlCleanupParser();
-    web->first = NULL;
   }
 }
