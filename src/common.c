@@ -13,8 +13,7 @@ void free_chain(account *node) {
 
 void free_memory(webpage *web) {
   free(web->raw);
-  if (web->first)
-    free_chain(web->first);
+  free_chain(web->first);
 }
 
 void print_error(char *msg) { fprintf(stderr, "%s\n", msg); }
