@@ -2,25 +2,70 @@
 
 void search_accounts(xmlNode *current, account **acc) {
   account **chase = acc;
-  for (; current; current = current->next) {
+  while (current) {
     if (current->type == XML_ELEMENT_NODE) {
       if (strcmp((char *)current->name, "article") == 0) {
-        printf("%s\n", current->name);
         chase = &build_account(current, chase)->next;
+        current = current->next;
+        continue;
       }
       search_accounts(current->children, chase);
     }
+    current = current->next;
   }
+}
+
+char *get_username(xmlNode *article) {
+  // magic
+}
+
+char *get_password(xmlNode *article) {
+  // magic
+}
+
+int get_success(xmlNode *article) {
+  int success = 0;
+  xmlNode *current = article->children->children;
+
+  while (current) {
+    if (strcmp((char *)current->name, "dd") == 0) {
+      xmlChar *prop = xmlGetProp(current, (xmlChar *)"class");
+      if (prop) {
+        if (strcmp((char *)prop, "stats") == 0) {
+          xmlChar *rate = xmlNodeGetContent(current->children->next->children);
+          for (int i = 1; i <= 3; i++)
+            if (rate[i] == '%') {
+              rate[i] = '\0';
+              break;
+            }
+          success = atoi((char *)rate);
+          xmlFree(rate);
+        }
+        xmlFree(prop);
+      }
+    }
+    current = current->next;
+  }
+
+  return success;
 }
 
 account *build_account(xmlNode *article, account **acc) {
   account *entry = (account *)malloc(sizeof(account));
-  entry->username = (char *)malloc(1);
-  entry->password = (char *)malloc(1);
-  entry->success = 0;
+  entry->username = get_username(article);
+  entry->password = get_password(article);
+  entry->success = get_success(article);
   entry->next = NULL;
   *acc = entry;
 
+  /*
+  xmlNode *data = article->children->children;
+  xmlNode *username = data->next->children;
+  data = data->next->next;
+  xmlNode *password = data->next->children;
+  printf("Username: %s\n", xmlNodeGetContent(username));
+  printf("Password: %s\n", xmlNodeGetContent(password));
+  */
   return entry;
 }
 

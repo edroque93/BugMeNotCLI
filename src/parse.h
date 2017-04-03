@@ -10,6 +10,8 @@
    HTML_PARSE_NONET)
 
 void search_accounts(xmlNode *current, account **acc);
+char *get_username(xmlNode *article);
+int get_success(xmlNode *article);
 account *build_account(xmlNode *article, account **acc);
 void parse_webpage(webpage *web);
 
