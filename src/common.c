@@ -1,15 +1,14 @@
 #include "common.h"
 
 void free_chain(account *node) {
-    printf("Libero...\n");
-  while (node->next) {
+  if (node) {
     free_chain((account *)node->next);
-    free(node->next);
+    if (node->username)
+      free(node->username);
+    if (node->password)
+      free(node->password);
+    free(node);
   }
-  if (node->username)
-    free(node->username);
-  if (node->password)
-    free(node->password);
 }
 
 void free_memory(webpage *web) {
