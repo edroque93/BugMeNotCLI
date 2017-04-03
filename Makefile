@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -g
-LDFLAGS = -lcurl
+LDFLAGS = -lcurl -lxml2
 WARNINGS = -Wall
 FORMAT = clang-format-3.8
 SOURCES = $(shell find src/ -iname *.c)
