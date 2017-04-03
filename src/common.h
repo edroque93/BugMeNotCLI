@@ -4,18 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
+typedef struct account {
   char *username;
   char *password;
   int success;
   struct account *next;
 } account;
 
-typedef struct {
+typedef struct webpage {
   char *URL;
   char *raw;
   size_t length;
-  account *first;
+  struct account *first;
 } webpage;
 
 void free_chain(account *node);

@@ -7,7 +7,7 @@ int main() {
   fetch_webpage(&web);
   parse_webpage(&web);
   // printf("%s\n", web.raw);
-  
+
   free_memory(&web);
 
   return 0;

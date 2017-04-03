@@ -3,12 +3,14 @@
 
 #include "common.h"
 #include <libxml/HTMLparser.h>
+#include <string.h>
 
 #define HTML_FLAGS                                                             \
   (HTML_PARSE_NOBLANKS | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING |           \
    HTML_PARSE_NONET)
 
-void print_element_names(xmlNode *node);
+void search_accounts(xmlNode *current, account **acc);
+account *build_account(xmlNode *article, account **acc);
 void parse_webpage(webpage *web);
 
 #endif
