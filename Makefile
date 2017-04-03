@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -I/usr/include/libxml2/
+CFLAGS = -g -std=c99 -I/usr/include/libxml2/
 LDFLAGS = -lcurl -lxml2
 WARNINGS = -Wall
 FORMAT = clang-format-3.8
