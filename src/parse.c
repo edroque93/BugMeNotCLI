@@ -16,11 +16,55 @@ void search_accounts(xmlNode *current, account **acc) {
 }
 
 char *get_username(xmlNode *article) {
-  // magic
+  char *username;
+  xmlNode *current = article->children->children;
+
+  while (current) {
+    if (strcmp((char *)current->name, "dt") == 0) {
+      xmlChar *label = xmlNodeGetContent(current);
+      if (strcmp((char *)label, "Username:") == 0) {
+        current = current->next->children;
+        xmlChar *xusername = xmlNodeGetContent(current);
+        size_t xlen = strlen((char *)xusername);
+        username = (char *)malloc(xlen + sizeof(char));
+        memcpy(username, xusername, xlen);
+        username[xlen] = '\0';
+        xmlFree(xusername);
+        xmlFree(label);
+        break;
+      }
+      xmlFree(label);
+    }
+    current = current->next;
+  }
+
+  return username;
 }
 
 char *get_password(xmlNode *article) {
-  // magic
+  char *username;
+  xmlNode *current = article->children->children;
+
+  while (current) {
+    if (strcmp((char *)current->name, "dt") == 0) {
+      xmlChar *label = xmlNodeGetContent(current);
+      if (strcmp((char *)label, "Password:") == 0) {
+        current = current->next->children;
+        xmlChar *xusername = xmlNodeGetContent(current);
+        size_t xlen = strlen((char *)xusername);
+        username = (char *)malloc(xlen + sizeof(char));
+        memcpy(username, xusername, xlen);
+        username[xlen] = '\0';
+        xmlFree(xusername);
+        xmlFree(label);
+        break;
+      }
+      xmlFree(label);
+    }
+    current = current->next;
+  }
+
+  return username;
 }
 
 int get_success(xmlNode *article) {
@@ -60,7 +104,7 @@ account *build_account(xmlNode *article, account **acc) {
 
   /*
   xmlNode *data = article->children->children;
-  xmlNode *username = data->next->children;
+  xmlNode *username = article->children->children->next->children;
   data = data->next->next;
   xmlNode *password = data->next->children;
   printf("Username: %s\n", xmlNodeGetContent(username));
