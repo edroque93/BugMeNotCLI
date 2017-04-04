@@ -3,9 +3,10 @@
 #include "parse.h"
 
 int compare(const void *a, const void *b) {
-  account *A = (account *)a;
-  account *B = (account *)b;
-  return A->success - B->success;
+  account *A = (account *) *((int *)a);
+  account *B = (account *) *((int *)b);
+  //printf("Comparing %s vs %s, %d - %d\n", A->username, B->username, A->success, B->success);
+  return B->success - A->success;
 }
 
 int main() {
@@ -18,7 +19,7 @@ int main() {
   account **entries = (account **)malloc(actual * sizeof(account *));
   account *p = web.first;
   while (p) {
-    printf("%p, %s, %s, %d\n", p, p->username, p->password, p->success);
+    
     entries[count++] = p;
     if (count == actual) {
       actual <<= 1;
@@ -29,14 +30,11 @@ int main() {
 
   entries = (account **)realloc(entries, count * sizeof(account *));
 
-  // for (int i = 0; i < count; i++) {
-  //  printf("%p\n", entries[i]);
-  //}
 
   qsort(entries, count, sizeof(account *), compare);
 
   for (int i = 0; i < count; i++) {
-    printf("%d\n", entries[i]->success);
+    printf("%p, %s, %s, %d\n", entries[i], entries[i]->username, entries[i]->password, entries[i]->success);
   }
 
   free(entries);
