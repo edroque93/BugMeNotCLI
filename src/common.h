@@ -16,8 +16,11 @@ typedef struct webpage {
   char *raw;
   size_t length;
   struct account *first;
+  account **sorted;
 } webpage;
 
+int compare_accounts(const void *a, const void *b);
+void sort_accounts(webpage *web);
 void free_chain(account *node);
 void free_memory(webpage *web);
 void print_error(char *msg);
