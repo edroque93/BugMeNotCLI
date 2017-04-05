@@ -102,14 +102,6 @@ account *build_account(xmlNode *article, account **acc) {
   entry->next = NULL;
   *acc = entry;
 
-  /*
-  xmlNode *data = article->children->children;
-  xmlNode *username = article->children->children->next->children;
-  data = data->next->next;
-  xmlNode *password = data->next->children;
-  printf("Username: %s\n", xmlNodeGetContent(username));
-  printf("Password: %s\n", xmlNodeGetContent(password));
-  */
   return entry;
 }
 
