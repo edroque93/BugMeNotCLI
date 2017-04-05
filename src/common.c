@@ -1,6 +1,6 @@
 #include "common.h"
 
-const char* baseURL = "http://bugmenot.com/view/";
+const char *baseURL = "http://bugmenot.com/view/";
 
 int compare_accounts(const void *a, const void *b) {
   return ((account *)*((long *)b))->success -
