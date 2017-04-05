@@ -2,21 +2,21 @@
 #include "fetch.h"
 #include "parse.h"
 
-int compare(const void *a, const void *b) {
-  return ((account *)*((long *)a))->success -
-         ((account *)*((long *)a))->success;
-}
+int main(int argc, char **argv) {
+  char *url = (char *)malloc(strlen(baseURL) + strlen(argv[1]) + 1);
+  strcpy(url, baseURL);
+  strcat(url, argv[1]);
 
-int main() {
-  webpage web = {.URL = "http://bugmenot.com/view/9gag.com"};
+  webpage web = {.URL = url};
 
   fetch_webpage(&web);
   parse_webpage(&web);
   sort_accounts(&web);
 
-  account **a = web.sorted;
-  for (int i = 0; a[i]; i++) {
-    printf("%d\n", a[i]->success);
+  account *best = web.sorted[0];
+  if (best) {
+    printf("Username: %s\nPassword: %s\nSuccess:  %d%%\n", best->username, best->password,
+           best->success);
   }
 
   free_memory(&web);
