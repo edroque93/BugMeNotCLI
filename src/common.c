@@ -1,7 +1,9 @@
 #include "common.h"
 
+const char* baseURL = "http://bugmenot.com/view/";
+
 int compare_accounts(const void *a, const void *b) {
-  return ((account *)*((long *)a))->success -
+  return ((account *)*((long *)b))->success -
          ((account *)*((long *)a))->success;
 }
 
@@ -37,6 +39,7 @@ void free_chain(account *node) {
 
 void free_memory(webpage *web) {
   free_chain(web->first);
+  free(web->URL);
   free(web->raw);
   free(web->sorted);
 }

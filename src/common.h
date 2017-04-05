@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern const char *baseURL;
+
 typedef struct account {
   char *username;
   char *password;
